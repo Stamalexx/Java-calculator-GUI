@@ -1,5 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class GUI extends JFrame {
     private JPanel mainPanel = new JPanel(new BorderLayout());
@@ -12,9 +15,20 @@ public class GUI extends JFrame {
     private JButton minusButton = new JButton("-");
     private JButton divisionButton = new JButton("/");
     private JButton multiplicationButton = new JButton("*");
+    private JButton equalButton = new JButton("=");
+    private ArrayList<Integer> firstlist = new ArrayList<>();
+    private int userInput;
+    private String toShow = "";
 
 
     public GUI(){
+
+        ButtonListener listener = new ButtonListener();
+        plusButton.addActionListener(listener);
+        minusButton.addActionListener(listener);
+        divisionButton.addActionListener(listener);
+        multiplicationButton.addActionListener(listener);
+        equalButton.addActionListener(listener);
         //creates buttons from 0 to 9
         for (int i = 0; i<10; i++){
 
@@ -25,22 +39,26 @@ public class GUI extends JFrame {
         //adds the buttons and set dimensions of the buttons
         for (JButton button: numberButtons){
             button.setPreferredSize(new Dimension(50, 50));
+            button.addActionListener(listener);
             centerPanel.add(button);
         }
         show_number.setFont(new Font("Arial",Font.PLAIN, 24));
 //        show_number.setPreferredSize(new Dimension(200,50));
         //add panels
         northPanel.add(show_number);
-
+//add buttons
         eastPanel.add(plusButton);
         eastPanel.add(minusButton);
         eastPanel.add(divisionButton);
         eastPanel.add(multiplicationButton);
+        eastPanel.add(equalButton);
 
 
         mainPanel.add(northPanel,BorderLayout.NORTH);
         mainPanel.add(centerPanel, BorderLayout.CENTER);
         mainPanel.add(eastPanel,BorderLayout.EAST);
+
+
 
         this.setContentPane(mainPanel);
         this.setVisible(true);
@@ -48,6 +66,58 @@ public class GUI extends JFrame {
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+
+    }
+    private void resetShow(){
+        toShow = "";
+        show_number.setText("0");
+    }
+    private Boolean checkStatement(ActionEvent event,JButton button){
+        if (event.getSource().equals(button)){
+            resetShow();
+            return true;}
+        else
+            return false;
+
+    }
+    class ButtonListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e){
+            for(JButton button: numberButtons) {
+                if (e.getSource().equals(button)){
+                    userInput = Integer.parseInt(button.getText());
+                    firstlist.add(userInput);
+                    System.out.println(userInput);
+                    toShow += userInput;
+
+                }
+
+            }
+
+            show_number.setText(toShow);
+
+            if (checkStatement(e,plusButton)){
+                System.out.println(1);
+
+            }
+            else if (checkStatement(e,minusButton)){
+                System.out.println(2);
+
+            }
+            else if (checkStatement(e,divisionButton)){
+                System.out.println(3);
+
+            }
+            else if (checkStatement(e,multiplicationButton)){
+                System.out.println(4);
+
+            }
+            else if (checkStatement(e,equalButton)){
+                System.out.println(5);
+
+            }
+        }
 
     }
 
