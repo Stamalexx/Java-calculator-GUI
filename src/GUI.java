@@ -16,9 +16,12 @@ public class GUI extends JFrame {
     private JButton divisionButton = new JButton("/");
     private JButton multiplicationButton = new JButton("*");
     private JButton equalButton = new JButton("=");
-    private ArrayList<Integer> firstlist = new ArrayList<>();
+    private ArrayList<Integer> intigerlist = new ArrayList<>();
+    private ArrayList<String> stringlist = new ArrayList<>();
     private int userInput;
     private String toShow = "";
+    private String currentInput = "";
+
 
 
     public GUI(){
@@ -86,8 +89,9 @@ public class GUI extends JFrame {
         public void actionPerformed(ActionEvent e){
             for(JButton button: numberButtons) {
                 if (e.getSource().equals(button)){
+                    currentInput += button.getText();
                     userInput = Integer.parseInt(button.getText());
-                    firstlist.add(userInput);
+
                     System.out.println(userInput);
                     toShow += userInput;
 
@@ -98,22 +102,37 @@ public class GUI extends JFrame {
             show_number.setText(toShow);
 
             if (checkStatement(e,plusButton)){
+                intigerlist.add(userInput);
+                stringlist.add(plusButton.getText());
                 System.out.println(1);
 
             }
             else if (checkStatement(e,minusButton)){
+                intigerlist.add(userInput);
+                stringlist.add(minusButton.getText());
                 System.out.println(2);
 
             }
             else if (checkStatement(e,divisionButton)){
+                intigerlist.add(userInput);
+                stringlist.add(divisionButton.getText());
                 System.out.println(3);
 
             }
             else if (checkStatement(e,multiplicationButton)){
+                intigerlist.add(userInput);
+                stringlist.add(multiplicationButton.getText());
                 System.out.println(4);
 
             }
             else if (checkStatement(e,equalButton)){
+                for (int intiger:intigerlist){
+                    for (String charr: stringlist){
+
+                    }
+                }
+                double result = 10.90;
+                show_number.setText("");
                 System.out.println(5);
 
             }
